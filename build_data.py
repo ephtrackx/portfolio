@@ -2,6 +2,7 @@ import csv
 import json
 import os
 import glob
+import subprocess
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_FILE = os.path.join(BASE_DIR, 'data.json')
@@ -10,7 +11,6 @@ def clean_row(row):
     return {k.strip(): v.strip() if isinstance(v, str) else v for k, v in row.items() if k}
 
 def find_file_path(subfolder, filename_no_ext):
-    """Шукає файл з будь-яким графічним розширенням у підпапці img/{subfolder}/"""
     valid_exts = ['.jpg', '.jpeg', '.png', '.webp']
     folder_path = os.path.join(BASE_DIR, 'img', subfolder)
     
@@ -51,11 +51,9 @@ def process_docs(file_path):
             cover_ua = cleaned.get('Cover_Image_UA')
 
             if project_id:
-                # 1. Пошук у відповідних підпапках
                 found_en = find_file_path('doc', project_id)
                 found_ua = find_file_path('doc-ua', f"{project_id}-ua") or find_file_path('doc-ua', project_id)
 
-                # 2. Якщо в CSV не заповнено вручну — беремо знайдений файл
                 if not cover_en:
                     cover_en = found_en or found_ua or f"img/doc/{project_id}.jpg"
                 
@@ -163,6 +161,24 @@ def process_about(file_path):
     about_data['photos'] = photos
     return about_data
 
+def push_to_github():
+    """Автоматично надсилає всі зміни на GitHub"""
+    print("\n--- ВІДПРАВКА ЗМІН НА GITHUB ---")
+    try:
+        subprocess.run(["git", "add", "."], check=True, cwd=BASE_DIR)
+        
+        # Перевіряємо, чи є взагалі зміни для комміту
+        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=BASE_DIR)
+        if not status.stdout.strip():
+            print("[i] Немає нових змін для комміту.")
+            return
+
+        subprocess.run(["git", "commit", "-m", "Auto-update portfolio data and assets"], check=True, cwd=BASE_DIR)
+        subprocess.run(["git", "push"], check=True, cwd=BASE_DIR)
+        print("[✓] Зміни успішно завантажено на GitHub!")
+    except Exception as e:
+        print(f"[!] Помилка під час відправки на GitHub: {e}")
+
 def build_portfolio():
     data = {'navigation': [], 'pages': {}}
     csv_files = glob.glob(os.path.join(BASE_DIR, '*.csv'))
@@ -181,7 +197,8 @@ def build_portfolio():
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"Успішно оновлено {OUTPUT_FILE}")
+    print(f"[✓] Успішно оновлено {OUTPUT_FILE}")
+    push_to_github()
 
 if __name__ == '__main__':
     build_portfolio()
