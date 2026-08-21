@@ -1,0 +1,5 @@
+my_tree.txt
+design.md
+*.pyc
+__pycache__/
+.DS_Store

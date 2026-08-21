@@ -1,0 +1,8 @@
+Page_ID,Menu_Title_EN,Menu_Title_UA,Page_Type,Target_Sheet,Enabled,Order
+about,About Me,Про мене,static_page,Sheet_About,TRUE,1
+docs,Documentaries,Документальні фільми,grid_portfolio,Sheet_Docs,TRUE,2
+music,Music,Музика,audio_portfolio,Sheet_Music,TRUE,3
+music_videos,Music Videos,Музичні відео,grid_portfolio,Sheet_MusicVideos,FALSE,4
+tv_shows,TV,Телепрограми,grid_portfolio,Sheet_TV,FALSE,5
+commercials,Commercials,Рекламні ролики,grid_portfolio,Sheet_Commercials,FALSE,6
+links,Links & Support,Посилання та підтримка,links_page,Sheet_Links,FALSE,7
