@@ -300,13 +300,17 @@ function renderGridPage(pageId, container) {
                                 
                                 ${targetLink ? `
                                     <!-- Оверлей при наведенні -->
-                                    <div class="absolute inset-0 bg-studio-bg/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <div class="absolute inset-0 bg-studio-bg/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     
-                                    <!-- Кнопка у лівому нижньому кутку -->
+                                    <!-- Адаптивна кнопка у лівому нижньому кутку -->
                                     <div class="absolute bottom-3 left-3 z-10">
-                                        <div class="btn-primary text-xs !py-2 !px-3 shadow-lg transform group-hover:scale-105 transition-all duration-200">
-                                            <span>${youtubeBtnText}</span>
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                        <div class="yt-expand-btn">
+                                            <!-- Іконка Play -->
+                                            <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                            <!-- Текст, що висувається -->
+                                            <span class="yt-btn-text">${youtubeBtnText}</span>
                                         </div>
                                     </div>
                                 ` : ''}
