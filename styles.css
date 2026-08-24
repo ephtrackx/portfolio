@@ -84,13 +84,6 @@ h1, h2, .font-heading {
     color: #f5d200;
 }
 
-.bg-grid-pattern {
-    background-size: 30px 30px;
-    background-image: 
-        linear-gradient(to right, rgba(245, 210, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(245, 210, 0, 0.05) 1px, transparent 1px);
-}
-
 .desc-scroll::-webkit-scrollbar {
     width: 3px;
 }

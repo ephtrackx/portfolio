@@ -295,13 +295,18 @@ function renderGridPage(pageId, container) {
                             <a href="${targetLink || '#'}" target="_blank" class="${targetLink ? 'cursor-pointer' : 'cursor-default'} block aspect-video studio-border bg-studio-bg overflow-hidden relative group w-full">
                                 <img src="${coverSrc}" 
                                      alt="${itemTitle}" 
-                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                      onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'aspect-video studio-border bg-studio-bg flex items-center justify-center font-mono text-xs text-studio-muted\\'>[ MISSING IMAGE: ${coverSrc} ]</div>';">
+                                
                                 ${targetLink ? `
-                                    <div class="absolute inset-0 bg-studio-bg/75 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-4 backdrop-blur-xs">
-                                        <div class="btn-primary transform translate-y-2 group-hover:translate-y-0 transition-transform duration-200">
+                                    <!-- Оверлей при наведенні -->
+                                    <div class="absolute inset-0 bg-studio-bg/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    
+                                    <!-- Кнопка у лівому нижньому кутку -->
+                                    <div class="absolute bottom-3 left-3 z-10">
+                                        <div class="btn-primary text-xs !py-2 !px-3 shadow-lg transform group-hover:scale-105 transition-all duration-200">
                                             <span>${youtubeBtnText}</span>
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                         </div>
                                     </div>
                                 ` : ''}
