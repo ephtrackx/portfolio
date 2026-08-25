@@ -2,6 +2,7 @@ let siteData = null;
 let currentLang = 'en';
 let currentTabId = 'about';
 let photoSliderInterval = null;
+let currentPhotoIdx = 0;
 
 function shuffleArray(array) {
     let arr = [...array];
@@ -32,7 +33,6 @@ function setLanguage(lang) {
     if (footerAuthor) footerAuthor.innerText = lang === 'ua' ? 'ОЛЕКСАНДР СТРАТОНОВ' : 'ALEXANDER STRATONOV';
     if (footerRights) footerRights.innerText = lang === 'ua' ? 'УСІ ПРАВА ЗАХИЩЕНІ.' : 'ALL RIGHTS RESERVED.';
 
-    // Двомовність кнопки мобільного меню
     const mobileMenuText = document.getElementById('mobile-menu-text');
     if (mobileMenuText) mobileMenuText.innerText = lang === 'ua' ? 'МЕНЮ' : 'MENU';
 
@@ -71,7 +71,6 @@ function renderNavigation() {
     siteData.navigation.forEach(item => {
         const title = currentLang === 'ua' ? (item.menu_title_ua || item.menu_title_en) : (item.menu_title_en || item.menu_title_ua);
         
-        // Десктопне меню
         if (navContainer) {
             const navEl = document.createElement('div');
             navEl.className = 'nav-item';
@@ -81,7 +80,6 @@ function renderNavigation() {
             navContainer.appendChild(navEl);
         }
 
-        // Мобільне випадаюче меню
         if (mobileDropdown) {
             const mobEl = document.createElement('div');
             mobEl.className = 'py-2.5 px-2 border-b border-studio-border/30 font-bold uppercase cursor-pointer hover:bg-studio-yellow hover:text-studio-bg transition-colors flex items-center justify-between';
@@ -127,6 +125,32 @@ function switchTab(pageId, title) {
     }
 }
 
+function changeGallerySlide(direction) {
+    const slides = document.querySelectorAll('.photo-slide');
+    if (!slides || slides.length === 0) return;
+
+    slides[currentPhotoIdx].classList.remove('opacity-100', 'active');
+    slides[currentPhotoIdx].classList.add('opacity-0');
+
+    if (direction === 'next') {
+        currentPhotoIdx = (currentPhotoIdx + 1) % slides.length;
+    } else if (direction === 'prev') {
+        currentPhotoIdx = (currentPhotoIdx - 1 + slides.length) % slides.length;
+    }
+
+    slides[currentPhotoIdx].classList.remove('opacity-0');
+    slides[currentPhotoIdx].classList.add('opacity-100', 'active');
+
+    const counter = document.getElementById('photo-counter');
+    if (counter) {
+        counter.innerText = `${String(currentPhotoIdx + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    }
+
+    // Перезапуск таймера автоперемикання
+    if (photoSliderInterval) clearInterval(photoSliderInterval);
+    photoSliderInterval = setInterval(() => changeGallerySlide('next'), 5000);
+}
+
 function renderAboutPage(container) {
     const about = (siteData.pages && siteData.pages.about) ? siteData.pages.about : {};
     const bioText = currentLang === 'ua' 
@@ -138,6 +162,7 @@ function renderAboutPage(container) {
         : (about.work_history_en && about.work_history_en.length > 0 ? about.work_history_en : about.work_history_ua);
 
     const photos = about.photos && about.photos.length > 0 ? shuffleArray(about.photos) : [];
+    currentPhotoIdx = 0;
 
     let html = `
         <div class="space-y-12">
@@ -147,13 +172,23 @@ function renderAboutPage(container) {
                         <span>// ${currentLang === 'ua' ? 'ГАЛЕРЕЯ' : 'GALLERY'}</span>
                         <span id="photo-counter">01 / ${String(photos.length).padStart(2, '0')}</span>
                     </div>
-                    <div class="aspect-video sm:aspect-[21/9] studio-border bg-studio-bg overflow-hidden relative flex items-center justify-center">
-                        ${photos.map((p, idx) => `
-                            <div class="photo-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ${idx === 0 ? 'opacity-100 active' : 'opacity-0'} flex items-center justify-center overflow-hidden">
-                                <img src="${p}" class="absolute inset-0 w-full h-full object-cover filter blur-md brightness-50 scale-105" alt="Blur Background">
-                                <img src="${p}" class="slide-image relative z-10 max-w-full max-h-full object-contain" alt="Alexander Stratonov Photo">
-                            </div>
-                        `).join('')}
+                    <div class="aspect-video sm:aspect-[21/9] studio-border bg-studio-bg overflow-hidden relative flex items-center justify-center group">
+                        
+                        ${photos.length > 1 ? `
+                            <!-- Кнопки навігації -->
+                            <button class="gallery-nav-btn prev" onclick="event.stopPropagation(); changeGallerySlide('prev');">‹</button>
+                            <button class="gallery-nav-btn next" onclick="event.stopPropagation(); changeGallerySlide('next');">›</button>
+                        ` : ''}
+
+                        <!-- Контейнер слайдів (клік по будь-якому місцю перемикає далі) -->
+                        <div class="w-full h-full relative cursor-pointer" onclick="changeGallerySlide('next')">
+                            ${photos.map((p, idx) => `
+                                <div class="photo-slide absolute inset-0 w-full h-full transition-opacity duration-700 ${idx === 0 ? 'opacity-100 active' : 'opacity-0'} flex items-center justify-center overflow-hidden">
+                                    <img src="${p}" class="absolute inset-0 w-full h-full object-cover filter blur-md brightness-50 scale-105" alt="Blur Background">
+                                    <img src="${p}" class="slide-image relative z-10 max-w-full max-h-full object-contain" alt="Alexander Stratonov Photo">
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </article>
             ` : ''}
@@ -198,18 +233,7 @@ function renderAboutPage(container) {
     container.innerHTML = html;
 
     if (photos.length > 1) {
-        let currentIdx = 0;
-        const slides = document.querySelectorAll('.photo-slide');
-        const counter = document.getElementById('photo-counter');
-
-        photoSliderInterval = setInterval(() => {
-            slides[currentIdx].classList.remove('opacity-100', 'active');
-            slides[currentIdx].classList.add('opacity-0');
-            currentIdx = (currentIdx + 1) % slides.length;
-            slides[currentIdx].classList.remove('opacity-0');
-            slides[currentIdx].classList.add('opacity-100', 'active');
-            if (counter) counter.innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
-        }, 5000);
+        photoSliderInterval = setInterval(() => changeGallerySlide('next'), 5000);
     }
 }
 
