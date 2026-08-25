@@ -53,15 +53,37 @@
             </div>
         </header>
 
-        <nav class="bg-studio-alt/80">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex justify-between items-center">
-                <div id="navbar" class="flex items-center overflow-x-auto font-mono text-xs sm:text-sm no-scrollbar flex-grow">
+        <nav class="bg-studio-alt/80 relative">
+            <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex justify-between items-center h-12">
+                
+                <!-- Мобільна кнопка меню та поточна сторінка (показується лише на екранах < 768px) -->
+                <div class="flex items-center gap-3 md:hidden">
+                    <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="lang-btn flex items-center gap-2 !py-1.5 !px-3 text-xs uppercase">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                        <span id="mobile-menu-text">MENU</span>
+                    </button>
+                    <span id="mobile-current-page" class="font-mono text-xs font-bold text-studio-yellow uppercase tracking-wider truncate max-w-[160px]">
+                        ABOUT ME
+                    </span>
+                </div>
+
+                <!-- Десктопне меню (показується від 768px і вище) -->
+                <div id="navbar" class="hidden md:flex items-center font-mono text-xs sm:text-sm no-scrollbar flex-grow">
                     <!-- Dynamic Tabs -->
                 </div>
-                <div class="flex items-center gap-1.5 shrink-0 pl-4 py-2">
+
+                <!-- Мовний перемикач -->
+                <div class="flex items-center gap-1.5 shrink-0 pl-4">
                     <button id="btn-ua" onclick="setLanguage('ua')" class="lang-btn">UA</button>
                     <button id="btn-en" onclick="setLanguage('en')" class="lang-btn active">ENG</button>
                 </div>
+            </div>
+
+            <!-- Випадаюче мобільне меню -->
+            <div id="mobile-dropdown" class="hidden md:hidden border-t border-studio-border bg-studio-alt/95 backdrop-blur px-4 py-3 space-y-1 font-mono text-xs">
+                <!-- Dynamic Mobile Links -->
             </div>
         </nav>
     </div>

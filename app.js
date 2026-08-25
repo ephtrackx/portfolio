@@ -12,6 +12,13 @@ function shuffleArray(array) {
     return arr;
 }
 
+function toggleMobileMenu() {
+    const dropdown = document.getElementById('mobile-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+    }
+}
+
 function setLanguage(lang) {
     currentLang = lang;
     document.getElementById('btn-ua').className = `lang-btn ${lang === 'ua' ? 'active' : ''}`;
@@ -24,6 +31,10 @@ function setLanguage(lang) {
     const footerRights = document.getElementById('footer-rights-text');
     if (footerAuthor) footerAuthor.innerText = lang === 'ua' ? 'ОЛЕКСАНДР СТРАТОНОВ' : 'ALEXANDER STRATONOV';
     if (footerRights) footerRights.innerText = lang === 'ua' ? 'УСІ ПРАВА ЗАХИЩЕНІ.' : 'ALL RIGHTS RESERVED.';
+
+    // Двомовність кнопки мобільного меню
+    const mobileMenuText = document.getElementById('mobile-menu-text');
+    if (mobileMenuText) mobileMenuText.innerText = lang === 'ua' ? 'МЕНЮ' : 'MENU';
 
     renderNavigation();
     
@@ -52,16 +63,35 @@ async function loadPortfolioData() {
 
 function renderNavigation() {
     const navContainer = document.getElementById('navbar');
-    navContainer.innerHTML = '';
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+    
+    if (navContainer) navContainer.innerHTML = '';
+    if (mobileDropdown) mobileDropdown.innerHTML = '';
 
     siteData.navigation.forEach(item => {
-        const navEl = document.createElement('div');
-        navEl.className = 'nav-item';
         const title = currentLang === 'ua' ? (item.menu_title_ua || item.menu_title_en) : (item.menu_title_en || item.menu_title_ua);
-        navEl.innerText = title;
-        navEl.dataset.pageId = item.page_id;
-        navEl.onclick = () => switchTab(item.page_id, title);
-        navContainer.appendChild(navEl);
+        
+        // Десктопне меню
+        if (navContainer) {
+            const navEl = document.createElement('div');
+            navEl.className = 'nav-item';
+            navEl.innerText = title;
+            navEl.dataset.pageId = item.page_id;
+            navEl.onclick = () => switchTab(item.page_id, title);
+            navContainer.appendChild(navEl);
+        }
+
+        // Мобільне випадаюче меню
+        if (mobileDropdown) {
+            const mobEl = document.createElement('div');
+            mobEl.className = 'py-2.5 px-2 border-b border-studio-border/30 font-bold uppercase cursor-pointer hover:bg-studio-yellow hover:text-studio-bg transition-colors flex items-center justify-between';
+            mobEl.innerHTML = `<span>${title}</span> <span class="text-[10px] text-studio-muted">//</span>`;
+            mobEl.onclick = () => {
+                switchTab(item.page_id, title);
+                toggleMobileMenu();
+            };
+            mobileDropdown.appendChild(mobEl);
+        }
     });
 }
 
@@ -80,6 +110,9 @@ function switchTab(pageId, title) {
     });
 
     document.getElementById('page-title').innerText = title;
+    const mobileCurrPage = document.getElementById('mobile-current-page');
+    if (mobileCurrPage) mobileCurrPage.innerText = title;
+
     const contentArea = document.getElementById('content-area');
 
     if (pageId === 'about') {
@@ -299,17 +332,12 @@ function renderGridPage(pageId, container) {
                                      onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'aspect-video studio-border bg-studio-bg flex items-center justify-center font-mono text-xs text-studio-muted\\'>[ MISSING IMAGE: ${coverSrc} ]</div>';">
                                 
                                 ${targetLink ? `
-                                    <!-- Оверлей при наведенні -->
                                     <div class="absolute inset-0 bg-studio-bg/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    
-                                    <!-- Адаптивна кнопка у лівому нижньому кутку -->
                                     <div class="absolute bottom-3 left-3 z-10">
                                         <div class="yt-expand-btn">
-                                            <!-- Іконка Play -->
                                             <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
                                                 <path d="M8 5v14l11-7z"/>
                                             </svg>
-                                            <!-- Текст, що висувається -->
                                             <span class="yt-btn-text">${youtubeBtnText}</span>
                                         </div>
                                     </div>

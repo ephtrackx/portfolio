@@ -126,7 +126,7 @@ h1, h2, .font-heading {
                 margin-left 300ms ease;
 }
 
-/* Розгортання при наведенні на кавер, саму кнопку або при фокусі/тапі */
+/* Розгортання при наведенні на кавер або саму кнопку */
 .group:hover .yt-expand-btn,
 .yt-expand-btn:hover,
 .yt-expand-btn:focus,

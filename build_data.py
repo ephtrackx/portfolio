@@ -11,6 +11,7 @@ def clean_row(row):
     return {k.strip(): v.strip() if isinstance(v, str) else v for k, v in row.items() if k}
 
 def find_file_path(subfolder, filename_no_ext):
+    """Шукає файл зображення з будь-яким розширенням у підпапці img/{subfolder}/"""
     valid_exts = ['.jpg', '.jpeg', '.png', '.webp']
     folder_path = os.path.join(BASE_DIR, 'img', subfolder)
     
@@ -39,8 +40,9 @@ def process_structure(file_path):
     structure.sort(key=lambda x: x['order'])
     return structure
 
-def process_docs(file_path):
-    docs = []
+def process_grid_sheet(file_path, subfolder):
+    """Універсальний парсер для сіткових сторінок (Documentaries, Music Videos тощо)"""
+    items = []
     with open(file_path, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -51,19 +53,23 @@ def process_docs(file_path):
             cover_ua = cleaned.get('Cover_Image_UA')
 
             if project_id:
-                found_en = find_file_path('doc', project_id)
-                found_ua = find_file_path('doc-ua', f"{project_id}-ua") or find_file_path('doc-ua', project_id)
+                found_en = find_file_path(subfolder, project_id)
+                found_ua = find_file_path(f"{subfolder}-ua", f"{project_id}-ua") or find_file_path(f"{subfolder}-ua", project_id)
 
                 if not cover_en:
-                    cover_en = found_en or found_ua or f"img/doc/{project_id}.jpg"
+                    cover_en = found_en or found_ua or f"img/{subfolder}/{project_id}.jpg"
                 
                 if not cover_ua:
                     cover_ua = found_ua or found_en or cover_en
 
-            docs.append({
+            title_val = cleaned.get('Title') or ''
+            title_en = cleaned.get('Title_EN') or title_val
+            title_ua = cleaned.get('Title_UA') or title_val
+
+            items.append({
                 'project_id': project_id,
-                'title_en': cleaned.get('Title_EN') or cleaned.get('Title'),
-                'title_ua': cleaned.get('Title_UA') or cleaned.get('Title'),
+                'title_en': title_en,
+                'title_ua': title_ua,
                 'year': cleaned.get('Year'),
                 'role_en': cleaned.get('Role_EN') or cleaned.get('Role'),
                 'role_ua': cleaned.get('Role_UA') or cleaned.get('Role'),
@@ -76,8 +82,8 @@ def process_docs(file_path):
                 'featured': cleaned.get('Featured', '').upper() in ['TRUE', '1', 'YES'],
                 'order': int(cleaned.get('Order', 99))
             })
-    docs.sort(key=lambda x: x['order'])
-    return docs
+    items.sort(key=lambda x: x['order'])
+    return items
 
 def process_music(file_path):
     music = []
@@ -162,12 +168,10 @@ def process_about(file_path):
     return about_data
 
 def push_to_github():
-    """Автоматично надсилає всі зміни на GitHub"""
     print("\n--- ВІДПРАВКА ЗМІН НА GITHUB ---")
     try:
         subprocess.run(["git", "add", "."], check=True, cwd=BASE_DIR)
         
-        # Перевіряємо, чи є взагалі зміни для комміту
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=BASE_DIR)
         if not status.stdout.strip():
             print("[i] Немає нових змін для комміту.")
@@ -188,7 +192,12 @@ def build_portfolio():
         if 'Site_Structure' in filename:
             data['navigation'] = process_structure(f)
         elif 'Sheet_Docs' in filename:
-            data['pages']['docs'] = process_docs(f)
+            data['pages']['docs'] = process_grid_sheet(f, 'doc')
+        elif 'Sheet_MusicVideos' in filename or 'Sheet_Music_Videos' in filename or 'Sheet_MusVid' in filename:
+            parsed_vids = process_grid_sheet(f, 'musvid')
+            data['pages']['musicvideos'] = parsed_vids
+            data['pages']['musvid'] = parsed_vids
+            data['pages']['music_videos'] = parsed_vids
         elif 'Sheet_Music' in filename:
             data['pages']['music'] = process_music(f)
         elif 'Sheet_About' in filename:
