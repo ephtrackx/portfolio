@@ -11,7 +11,7 @@
     {
       "page_id": "docs",
       "menu_title_en": "Documentaries",
-      "menu_title_ua": "Документалки",
+      "menu_title_ua": "Документалістика",
       "page_type": "grid_portfolio",
       "target_sheet": "Sheet_Docs",
       "order": 2
