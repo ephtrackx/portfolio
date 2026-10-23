@@ -49,7 +49,6 @@ async function loadPortfolioData() {
         siteData = await response.json();
         renderNavigation();
         
-        // Перевіряємо хеш у URL (наприклад, #music або #docs)
         const initialHash = window.location.hash.replace('#', '').trim();
         let targetNav = siteData.navigation.find(n => n.page_id === initialHash);
 
@@ -104,7 +103,6 @@ function switchTab(pageId, title, updateHash = true) {
     currentTabId = pageId;
     if (photoSliderInterval) clearInterval(photoSliderInterval);
 
-    // Оновлюємо хеш у адресному рядку браузера
     if (updateHash) {
         history.pushState(null, null, `#${pageId}`);
     }
@@ -133,7 +131,7 @@ function switchTab(pageId, title, updateHash = true) {
         renderMusicPage(contentArea);
     } else {
         document.getElementById('record-count-box').style.display = 'flex';
-        renderGridPage(pageId, container);
+        renderGridPage(pageId, contentArea);
     }
 }
 
@@ -405,7 +403,6 @@ function renderGridPage(pageId, container) {
     container.innerHTML = html;
 }
 
-// Перехоплення кнопок Назад/Вперед у браузері
 window.onpopstate = () => {
     if (!siteData) return;
     const currentHash = window.location.hash.replace('#', '').trim();
