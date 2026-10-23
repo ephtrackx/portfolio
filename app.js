@@ -40,7 +40,7 @@ function setLanguage(lang) {
     
     const navItem = siteData.navigation.find(n => n.page_id === currentTabId);
     const title = navItem ? (currentLang === 'ua' ? (navItem.menu_title_ua || navItem.menu_title_en) : (navItem.menu_title_en || navItem.menu_title_ua)) : 'PORTFOLIO';
-    switchTab(currentTabId, title);
+    switchTab(currentTabId, title, false);
 }
 
 async function loadPortfolioData() {
@@ -49,12 +49,19 @@ async function loadPortfolioData() {
         siteData = await response.json();
         renderNavigation();
         
-        if (siteData.navigation && siteData.navigation.length > 0) {
-            const firstNav = siteData.navigation[0];
-            const title = currentLang === 'ua' ? (firstNav.menu_title_ua || firstNav.menu_title_en) : (firstNav.menu_title_en || firstNav.menu_title_ua);
-            switchTab(firstNav.page_id, title);
+        // Перевіряємо хеш у URL (наприклад, #music або #docs)
+        const initialHash = window.location.hash.replace('#', '').trim();
+        let targetNav = siteData.navigation.find(n => n.page_id === initialHash);
+
+        if (!targetNav && siteData.navigation.length > 0) {
+            targetNav = siteData.navigation[0];
+        }
+
+        if (targetNav) {
+            const title = currentLang === 'ua' ? (targetNav.menu_title_ua || targetNav.menu_title_en) : (targetNav.menu_title_en || targetNav.menu_title_ua);
+            switchTab(targetNav.page_id, title, false);
         } else {
-            switchTab('about', 'ABOUT ME');
+            switchTab('about', 'ABOUT ME', false);
         }
     } catch (error) {
         console.error('Error loading data.json:', error);
@@ -93,9 +100,14 @@ function renderNavigation() {
     });
 }
 
-function switchTab(pageId, title) {
+function switchTab(pageId, title, updateHash = true) {
     currentTabId = pageId;
     if (photoSliderInterval) clearInterval(photoSliderInterval);
+
+    // Оновлюємо хеш у адресному рядку браузера
+    if (updateHash) {
+        history.pushState(null, null, `#${pageId}`);
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -121,7 +133,7 @@ function switchTab(pageId, title) {
         renderMusicPage(contentArea);
     } else {
         document.getElementById('record-count-box').style.display = 'flex';
-        renderGridPage(pageId, contentArea);
+        renderGridPage(pageId, container);
     }
 }
 
@@ -146,7 +158,6 @@ function changeGallerySlide(direction) {
         counter.innerText = `${String(currentPhotoIdx + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
     }
 
-    // Перезапуск таймера автоперемикання
     if (photoSliderInterval) clearInterval(photoSliderInterval);
     photoSliderInterval = setInterval(() => changeGallerySlide('next'), 5000);
 }
@@ -173,14 +184,10 @@ function renderAboutPage(container) {
                         <span id="photo-counter">01 / ${String(photos.length).padStart(2, '0')}</span>
                     </div>
                     <div class="aspect-video sm:aspect-[21/9] studio-border bg-studio-bg overflow-hidden relative flex items-center justify-center group">
-                        
                         ${photos.length > 1 ? `
-                            <!-- Кнопки навігації -->
                             <button class="gallery-nav-btn prev" onclick="event.stopPropagation(); changeGallerySlide('prev');">‹</button>
                             <button class="gallery-nav-btn next" onclick="event.stopPropagation(); changeGallerySlide('next');">›</button>
                         ` : ''}
-
-                        <!-- Контейнер слайдів (клік по будь-якому місцю перемикає далі) -->
                         <div class="w-full h-full relative cursor-pointer" onclick="changeGallerySlide('next')">
                             ${photos.map((p, idx) => `
                                 <div class="photo-slide absolute inset-0 w-full h-full transition-opacity duration-700 ${idx === 0 ? 'opacity-100 active' : 'opacity-0'} flex items-center justify-center overflow-hidden">
@@ -397,5 +404,16 @@ function renderGridPage(pageId, container) {
 
     container.innerHTML = html;
 }
+
+// Перехоплення кнопок Назад/Вперед у браузері
+window.onpopstate = () => {
+    if (!siteData) return;
+    const currentHash = window.location.hash.replace('#', '').trim();
+    const targetNav = siteData.navigation.find(n => n.page_id === currentHash);
+    if (targetNav) {
+        const title = currentLang === 'ua' ? (targetNav.menu_title_ua || targetNav.menu_title_en) : (targetNav.menu_title_en || targetNav.menu_title_ua);
+        switchTab(targetNav.page_id, title, false);
+    }
+};
 
 window.onload = loadPortfolioData;
