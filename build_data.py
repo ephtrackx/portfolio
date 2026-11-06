@@ -137,20 +137,41 @@ def parse_work_lines(raw_text):
 
 def process_about(file_path):
     about_data = {}
+    publications = []
+
     with open(file_path, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
             cleaned = clean_row(row)
             key = cleaned.get('Key')
             val = cleaned.get('Value')
+            row_type = cleaned.get('Type', '')
+            link = cleaned.get('Link', '')
+            order_str = cleaned.get('Order', '99')
+
             if key and val:
                 about_data[key] = val
+
+            if row_type == 'publication' or (key and key.startswith('publication_')):
+                try:
+                    order_val = int(order_str) if order_str else 99
+                except ValueError:
+                    order_val = 99
+                publications.append({
+                    'key': key,
+                    'title': val,
+                    'link': link,
+                    'order': order_val
+                })
 
     work_en_raw = about_data.get('bio_work_en') or about_data.get('bio_work', '')
     work_ua_raw = about_data.get('bio_work_ua') or about_data.get('bio_work', '')
 
     about_data['work_history_en'] = parse_work_lines(work_en_raw)
     about_data['work_history_ua'] = parse_work_lines(work_ua_raw)
+
+    publications.sort(key=lambda x: x['order'])
+    about_data['publications'] = publications
 
     photos = []
     valid_extensions = ('.jpg', '.jpeg', '.png', '.webp')

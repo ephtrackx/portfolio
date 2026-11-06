@@ -47,6 +47,18 @@
       "contact_soundcloud": "https://www.soundcloud.com/ephtrackx",
       "contact_bandcamp": "https://ephtrackx.bandcamp.com/",
       "contact_byumeacoffee": "https://buymeacoffee.com/ephtrackx",
+      "publication_12": "ACL 2025: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2025)",
+      "publication_11": "Інтерв'ю з композитором розслідувань Суспільного увійшло до збірки «Ukrainian Field Notes» (Суспільне Мовлення, 31.01.2025)",
+      "publication_10": "ACL 2024: The Year’s Best Film Scores (A Closer Listen, 10.12.2024)",
+      "publication_09": "ACL 2024: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2024)",
+      "publication_08": "Як пишуть саундтреки для документального кіно: досвід розслідувачів Суспільного (Медіамейкер, 05.12.2024)",
+      "publication_07": "V/A ~ Ukrainian Field Notes Volume II (eBook & Compilation) (A Closer Listen, 25.11.2024)",
+      "publication_06": "Мисливці на хижаків (Inker, 09.05.2024)",
+      "publication_05": "ACL 2023: The Year’s Best Film Scores (A Closer Listen, 13.12.2023)",
+      "publication_04": "ACL 2023: The Year’s Best Ukrainian Music (A Closer Listen, 09.12.2023)",
+      "publication_03": "Саундтрек з фільму Суспільного про Бучу — у 20 найкращих за версією британського видання A Closer Listen (Суспільне Мовлення, 05.07.2023)",
+      "publication_02": "Alexander Stratonov ~ Bucha: Final Destination (Original Soundtrack) (A Closer Listen, 28.04.2023)",
+      "publication_01": "Ukrainian Field Notes XXII (A Closer Listen, 23.04.2023)",
       "work_history_en": [
         {
           "period": "2006-2007",
@@ -89,6 +101,80 @@
         {
           "period": "2019-Дотепер",
           "title": "керівник виробничого відділу редакції розслідувань у Суспільній телерадіокомпанії України"
+        }
+      ],
+      "publications": [
+        {
+          "key": "publication_12",
+          "title": "ACL 2025: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2025)",
+          "link": "https://acloserlisten.com/2025/12/06/acl-2025-the-years-best-ukrainian-music/",
+          "order": 1
+        },
+        {
+          "key": "publication_11",
+          "title": "Інтерв'ю з композитором розслідувань Суспільного увійшло до збірки «Ukrainian Field Notes» (Суспільне Мовлення, 31.01.2025)",
+          "link": "https://corp.suspilne.media/novyny/28294-interviu-z-kompozytorom-rozsliduvan-suspilnoho-uviishlo-do-zbirky-a-closer-listen/",
+          "order": 2
+        },
+        {
+          "key": "publication_10",
+          "title": "ACL 2024: The Year’s Best Film Scores (A Closer Listen, 10.12.2024)",
+          "link": "https://acloserlisten.com/2024/12/10/acl-2024-the-years-best-film-scores/",
+          "order": 3
+        },
+        {
+          "key": "publication_09",
+          "title": "ACL 2024: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2024)",
+          "link": "https://acloserlisten.com/2024/12/06/acl-2024-the-years-best-ukrainian-music/",
+          "order": 4
+        },
+        {
+          "key": "publication_08",
+          "title": "Як пишуть саундтреки для документального кіно: досвід розслідувачів Суспільного (Медіамейкер, 05.12.2024)",
+          "link": "https://mediamaker.me/yak-pyshut-saundtreky-dlya-dokumentalnogo-kino-dosvid-rozsliduvachiv-suspilnogo-14312/",
+          "order": 5
+        },
+        {
+          "key": "publication_07",
+          "title": "V/A ~ Ukrainian Field Notes Volume II (eBook & Compilation) (A Closer Listen, 25.11.2024)",
+          "link": "https://acloserlisten.com/2024/11/25/v-a-ukrainian-field-notes-volume-ii/",
+          "order": 6
+        },
+        {
+          "key": "publication_06",
+          "title": "Мисливці на хижаків (Inker, 09.05.2024)",
+          "link": "https://inker.world/myslyvtsi-na-khyzhakiv/",
+          "order": 7
+        },
+        {
+          "key": "publication_05",
+          "title": "ACL 2023: The Year’s Best Film Scores (A Closer Listen, 13.12.2023)",
+          "link": "https://acloserlisten.com/2023/12/13/acl-2023-the-years-best-film-scores/",
+          "order": 8
+        },
+        {
+          "key": "publication_04",
+          "title": "ACL 2023: The Year’s Best Ukrainian Music (A Closer Listen, 09.12.2023)",
+          "link": "https://acloserlisten.com/2023/12/09/acl-2023-the-years-best-ukrainian-music/",
+          "order": 9
+        },
+        {
+          "key": "publication_03",
+          "title": "Саундтрек з фільму Суспільного про Бучу — у 20 найкращих за версією британського видання A Closer Listen (Суспільне Мовлення, 05.07.2023)",
+          "link": "https://corp.suspilne.media/newsdetails/6499/",
+          "order": 10
+        },
+        {
+          "key": "publication_02",
+          "title": "Alexander Stratonov ~ Bucha: Final Destination (Original Soundtrack) (A Closer Listen, 28.04.2023)",
+          "link": "https://acloserlisten.com/2023/04/28/alexander-stratonov-bucha-final-destination-original-soundtrack/",
+          "order": 11
+        },
+        {
+          "key": "publication_01",
+          "title": "Ukrainian Field Notes XXII (A Closer Listen, 23.04.2023)",
+          "link": "https://acloserlisten.com/2023/04/23/ukrainian-field-notes-xxii/",
+          "order": 12
         }
       ],
       "photos": [

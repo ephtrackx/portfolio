@@ -1,25 +1,37 @@
-Key,Value,Type
+Key,Value,Type,Link,Order
 bio_en,"I’m an experienced video, audio, and everything in between specialist with 20 years of experience in television, radio broadcasting, motion design, video production, and media music composing. I currently work as the Head of Production of the Investigative Department at UA: PBC (Public Broadcasting Company of Ukraine).
 
-Furthermore, I also create soundtracks for documentaries and solo music under the pseudonym “ephtrackx”. Before that, I was the bassist of the Ukrainian indie band “acloneofmyown” and the guitarist of the metalcore band “the Sky is Red”. Although my music career started back in the early 2000s, when I wrote electronic music mostly in the genre of Trip-Hop and Drum’n’Bass, and worked with several local Hip-Hop artists.",text
+Furthermore, I also create soundtracks for documentaries and solo music under the pseudonym “ephtrackx”. Before that, I was the bassist of the Ukrainian indie band “acloneofmyown” and the guitarist of the metalcore band “the Sky is Red”. Although my music career started back in the early 2000s, when I wrote electronic music mostly in the genre of Trip-Hop and Drum’n’Bass, and worked with several local Hip-Hop artists.",text,,
 bio_ua,"Я – досвідчений фахівець у галузі відео, аудіо та усього, що з цим пов’язано, з 20-річним досвідом роботи в теле- та радіомовленні, моушн-дизайні, відеопродакшні та написанні музики для ЗМІ. Наразі я працюю керівником відділу виробництва розслідувального департаменту на «Суспільне».
 
-Крім того, я створюю саундтреки до документальних фільмів та сольну музику під псевдонімом «ephtrackx». До цього я був басистом українського інді-гурту «acloneofmyown» та гітаристом металкор-гурту «the Sky is Red». Хоча моя музична кар’єра розпочалася ще на початку 2000-х років, коли я писав електронну музику переважно в жанрах тріп-хоп та драм-н-бейс, а також співпрацював із кількома місцевими хіп-хоп-виконавцями».",text
+Крім того, я створюю саундтреки до документальних фільмів та сольну музику під псевдонімом «ephtrackx». До цього я був басистом українського інді-гурту «acloneofmyown» та гітаристом металкор-гурту «the Sky is Red». Хоча моя музична кар’єра розпочалася ще на початку 2000-х років, коли я писав електронну музику переважно в жанрах тріп-хоп та драм-н-бейс, а також співпрацював із кількома місцевими хіп-хоп-виконавцями».",text,,
 bio_work_en,"2006-2007 – System Administrator at TV\Radio Company “Rhythm”
 2007-2011 – Video Designer\Sound Engineer at TV\Radio Company “Rhythm”
 2011-2015 – Television Director at Rivne State Television Company
 2015-2019 – Senior Specialist (Videographer) at Public Broadcasting Company of Ukraine
-2019-Present – Head of Production (Investigative Department) at Public Broadcasting Company of Ukraine",text
+2019-Present – Head of Production (Investigative Department) at Public Broadcasting Company of Ukraine",text,,
 bio_work_ua,"2006–2007 – системний адміністратор у телерадіокомпанії «Ритм»
 2007–2011 – відеодизайнер та звукорежисер у телерадіокомпанії «Ритм»
 2011–2015 – режисер телебачення у Рівненській державній телерадіокомпанії
 2015–2019 – старший спеціаліст (відеограф) у Суспільній телерадіокомпанії України
-2019-Дотепер – керівник виробничого відділу редакції розслідувань у Суспільній телерадіокомпанії України",
-contact_email,acomo.fox@gmail.com,contact
-contact_facebook,https://www.facebook.com/ephtrackx,contact
-contact_linkedin,https://www.linkedin.com/in/alexanderstratonov/,contact
-contact_instagram,https://www.instagram.com/ephtrackx/,contact
-contact_youtube,https://www.youtube.com/@ephtrackx,contact
-contact_soundcloud,https://www.soundcloud.com/ephtrackx,contact
-contact_bandcamp,https://ephtrackx.bandcamp.com/,contact
-contact_byumeacoffee,https://buymeacoffee.com/ephtrackx,contact
+2019-Дотепер – керівник виробничого відділу редакції розслідувань у Суспільній телерадіокомпанії України",,,
+contact_email,acomo.fox@gmail.com,contact,,
+contact_facebook,https://www.facebook.com/ephtrackx,contact,,
+contact_linkedin,https://www.linkedin.com/in/alexanderstratonov/,contact,,
+contact_instagram,https://www.instagram.com/ephtrackx/,contact,,
+contact_youtube,https://www.youtube.com/@ephtrackx,contact,,
+contact_soundcloud,https://www.soundcloud.com/ephtrackx,contact,,
+contact_bandcamp,https://ephtrackx.bandcamp.com/,contact,,
+contact_byumeacoffee,https://buymeacoffee.com/ephtrackx,contact,,
+publication_12,"ACL 2025: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2025)",publication,https://acloserlisten.com/2025/12/06/acl-2025-the-years-best-ukrainian-music/,1
+publication_11,"Інтерв'ю з композитором розслідувань Суспільного увійшло до збірки «Ukrainian Field Notes» (Суспільне Мовлення, 31.01.2025)",publication,https://corp.suspilne.media/novyny/28294-interviu-z-kompozytorom-rozsliduvan-suspilnoho-uviishlo-do-zbirky-a-closer-listen/,2
+publication_10,"ACL 2024: The Year’s Best Film Scores (A Closer Listen, 10.12.2024)",publication,https://acloserlisten.com/2024/12/10/acl-2024-the-years-best-film-scores/,3
+publication_09,"ACL 2024: The Year’s Best Ukrainian Music (A Closer Listen, 06.12.2024)",publication,https://acloserlisten.com/2024/12/06/acl-2024-the-years-best-ukrainian-music/,4
+publication_08,"Як пишуть саундтреки для документального кіно: досвід розслідувачів Суспільного (Медіамейкер, 05.12.2024)",publication,https://mediamaker.me/yak-pyshut-saundtreky-dlya-dokumentalnogo-kino-dosvid-rozsliduvachiv-suspilnogo-14312/,5
+publication_07,"V/A ~ Ukrainian Field Notes Volume II (eBook & Compilation) (A Closer Listen, 25.11.2024)",publication,https://acloserlisten.com/2024/11/25/v-a-ukrainian-field-notes-volume-ii/,6
+publication_06,"Мисливці на хижаків (Inker, 09.05.2024)",publication,https://inker.world/myslyvtsi-na-khyzhakiv/,7
+publication_05,"ACL 2023: The Year’s Best Film Scores (A Closer Listen, 13.12.2023)",publication,https://acloserlisten.com/2023/12/13/acl-2023-the-years-best-film-scores/,8
+publication_04,"ACL 2023: The Year’s Best Ukrainian Music (A Closer Listen, 09.12.2023)",publication,https://acloserlisten.com/2023/12/09/acl-2023-the-years-best-ukrainian-music/,9
+publication_03,"Саундтрек з фільму Суспільного про Бучу — у 20 найкращих за версією британського видання A Closer Listen (Суспільне Мовлення, 05.07.2023)",publication,https://corp.suspilne.media/newsdetails/6499/,10
+publication_02,"Alexander Stratonov ~ Bucha: Final Destination (Original Soundtrack) (A Closer Listen, 28.04.2023)",publication,https://acloserlisten.com/2023/04/28/alexander-stratonov-bucha-final-destination-original-soundtrack/,11
+publication_01,"Ukrainian Field Notes XXII (A Closer Listen, 23.04.2023)",publication,https://acloserlisten.com/2023/04/23/ukrainian-field-notes-xxii/,12

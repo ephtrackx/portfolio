@@ -170,6 +170,7 @@ function renderAboutPage(container) {
         ? (about.work_history_ua && about.work_history_ua.length > 0 ? about.work_history_ua : about.work_history_en)
         : (about.work_history_en && about.work_history_en.length > 0 ? about.work_history_en : about.work_history_ua);
 
+    const publications = about.publications || [];
     const photos = about.photos && about.photos.length > 0 ? shuffleArray(about.photos) : [];
     currentPhotoIdx = 0;
 
@@ -232,6 +233,19 @@ function renderAboutPage(container) {
                     ${about.contact_byumeacoffee ? `<a href="${about.contact_byumeacoffee}" target="_blank" class="border border-studio-border p-3 hover:border-studio-yellow transition-colors">BUY ME A COFFEE</a>` : ''}
                 </div>
             </article>
+
+            ${publications && publications.length > 0 ? `
+                <article class="border border-studio-border bg-studio-alt/40 p-6 md:p-8 space-y-4">
+                    <h2 class="font-mono text-xs text-studio-muted uppercase tracking-widest mb-4">// ${currentLang === 'ua' ? 'ПУБЛІКАЦІЇ ТА ЗМІ' : 'PUBLICATIONS & MEDIA'}</h2>
+                    <div class="space-y-3 font-mono text-xs sm:text-sm">
+                        ${publications.map(pub => `
+                            <a href="${pub.link}" target="_blank" class="block border border-studio-yellow/40 p-3 sm:p-4 text-studio-yellow hover:bg-studio-yellow hover:text-studio-bg hover:border-studio-yellow transition-colors duration-150 uppercase leading-snug">
+                                ${pub.title}
+                            </a>
+                        `).join('')}
+                    </div>
+                </article>
+            ` : ''}
         </div>
     `;
 
